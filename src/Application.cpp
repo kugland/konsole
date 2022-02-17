@@ -117,7 +117,7 @@ Application::~Application()
 
 MainWindow *Application::newMainWindow()
 {
-    WindowSystemInfo::HAVE_TRANSPARENCY = !m_parser->isSet(QStringLiteral("notransparency"));
+    WindowSystemInfo::TRANSPARENCY_ENABLED = !m_parser->isSet(QStringLiteral("notransparency"));
 
     auto window = new MainWindow();
 

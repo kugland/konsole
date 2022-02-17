@@ -9,4 +9,5 @@
 
 using Konsole::WindowSystemInfo;
 
-bool WindowSystemInfo::HAVE_TRANSPARENCY = false;
+bool WindowSystemInfo::TRANSPARENCY_ACTIVE = false;
+bool WindowSystemInfo::TRANSPARENCY_ENABLED = true;

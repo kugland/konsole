@@ -14,7 +14,8 @@ namespace Konsole
 class KONSOLEPRIVATE_EXPORT WindowSystemInfo
 {
 public:
-    static bool HAVE_TRANSPARENCY;
+    static bool TRANSPARENCY_ACTIVE;
+    static bool TRANSPARENCY_ENABLED;
 };
 }
 

@@ -86,6 +86,7 @@ MainWindow::MainWindow()
     connect(_viewManager, &Konsole::ViewManager::unplugController, this, &Konsole::MainWindow::disconnectController);
     connect(_viewManager, &Konsole::ViewManager::viewPropertiesChanged, bookmarkHandler(), &Konsole::BookmarkHandler::setViews);
     connect(_viewManager, &Konsole::ViewManager::blurSettingChanged, this, &Konsole::MainWindow::setBlur);
+    connect(_viewManager, &Konsole::ViewManager::translucentBackgroundSettingChanged, this, &Konsole::MainWindow::setTranslucentBackgroundEnabled);
 
     connect(_viewManager, &Konsole::ViewManager::updateWindowIcon, this, &Konsole::MainWindow::updateWindowIcon);
     connect(_viewManager, &Konsole::ViewManager::newViewWithProfileRequest, this, &Konsole::MainWindow::newFromProfile);
@@ -142,15 +143,13 @@ bool MainWindow::wasWindowGeometrySaved() const
 
 void MainWindow::updateUseTransparency()
 {
-    if (!WindowSystemInfo::HAVE_TRANSPARENCY) {
+    if (!WindowSystemInfo::TRANSPARENCY_ENABLED) {
         return;
     }
 
-    bool useTranslucency = KWindowSystem::compositingActive();
-
-    setAttribute(Qt::WA_TranslucentBackground, useTranslucency);
+    setAttribute(Qt::WA_TranslucentBackground, _translucentBackgroundEnabled);
     setAttribute(Qt::WA_NoSystemBackground, false);
-    WindowSystemInfo::HAVE_TRANSPARENCY = useTranslucency;
+    WindowSystemInfo::TRANSPARENCY_ACTIVE = _translucentBackgroundEnabled;
 }
 
 void MainWindow::rememberMenuAccelerators()
@@ -864,6 +863,14 @@ void MainWindow::setBlur(bool blur)
             qCWarning(KonsoleDebug) << "Blur effect couldn't be enabled.";
         }
 #endif
+    }
+}
+
+void MainWindow::setTranslucentBackgroundEnabled(bool enabled)
+{
+    if (enabled != _translucentBackgroundEnabled) {
+        _translucentBackgroundEnabled = enabled;
+        updateUseTransparency();
     }
 }
 

@@ -1346,11 +1346,6 @@ void EditProfileDialog::updateTransparencyWarning()
                      " which does not appear to be supported on your"
                      " desktop"));
             _appearanceUi->transparencyWarningWidget->setHidden(false);
-        } else if (!WindowSystemInfo::HAVE_TRANSPARENCY) {
-            _appearanceUi->transparencyWarningWidget->setText(
-                i18n("Konsole was started before desktop effects were enabled."
-                     " You need to restart Konsole to see transparent background."));
-            _appearanceUi->transparencyWarningWidget->setHidden(false);
         }
     }
 }

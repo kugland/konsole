@@ -511,7 +511,7 @@ void TerminalDisplay::updateImage()
     // avoid expensive text drawing for parts of the image that
     // can simply be moved up or down
     // disable this shortcut for transparent konsole with scaled pixels, otherwise we get rendering artifacts, see BUG 350651
-    if (!(WindowSystemInfo::HAVE_TRANSPARENCY && (qApp->devicePixelRatio() > 1.0)) && _wallpaper->isNull() && !_searchBar->isVisible()) {
+    if (!(WindowSystemInfo::TRANSPARENCY_ACTIVE && (qApp->devicePixelRatio() > 1.0)) && _wallpaper->isNull() && !_searchBar->isVisible()) {
         // if the flow control warning is enabled this will interfere with the
         // scrolling optimizations and cause artifacts.  the simple solution here
         // is to just disable the optimization whilst it is visible
